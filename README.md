@@ -1,16 +1,26 @@
-# Hackathon AI – Nhóm 2
+# Highlight
 
-Prototype ứng dụng AI giúp đội nội dung FPT Play tạo highlight/trailer từ VOD (phim hoặc thể thao): AI chọn đoạn nổi bật, tạo nhạc AI, tự động dựng và xuất clip MP4 (9:16 hoặc 16:9).
+Upload a video in the browser, get recommended trailer highlights and clips.
 
-## Tài liệu
+## Run
+Put your keys in `.env` (`GEMINI_API_KEY`, `API_KEY`, `GEMINI_BASE_URL`), then:
 
-- [Đề thi & thể lệ HACKAITHON 2026](DE_THI_HACKAITHON_2026.md)
+    docker compose up -d --build
 
-## Thành viên
+Open http://localhost:8000. If `API_KEY` is set, log in with username `admin` and `API_KEY` as the password.
 
-| Vai trò | Trách nhiệm chính |
-|---|---|
-| AI Engineer | Phân tích VOD, chọn highlight, tích hợp tạo nhạc AI |
-| Backend Engineer | API, pipeline xử lý, cắt ghép và render video |
-| Frontend Engineer | Giao diện thao tác, trạng thái xử lý, preview và tải clip |
-| Business Analyst | Chốt use case, tiêu chí chất lượng, kiểm thử và chuẩn bị trình bày + demo |
+Without Docker you need `ffmpeg` and `ffprobe` on PATH: `pip install -r requirements.txt && python app.py`.
+
+Gradio also exposes the same function as an API (see "Use via API" at the bottom of the page),
+for example with `gradio_client`.
+
+Options: highlights count, min/max clip length (seconds), language (Vietnamese|English),
+include spoilers, and a minute cutoff (ignore everything after it).
+
+## Limits (hackathon scope)
+- Run a single server process; jobs run inside the request, so closing the tab cancels the wait.
+- Uploaded videos and clips stay on disk until you delete them.
+- Upload size is checked by Gradio against `MAX_UPLOAD_MB`.
+- Plain HTTP: add TLS before using it outside a private network.
+- A highlight crossing a 20-minute chunk boundary can be missed.
+- Video is sent to Google: check content rights. Free-tier data may be used by Google to improve products.
