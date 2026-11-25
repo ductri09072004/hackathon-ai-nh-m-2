@@ -12,7 +12,7 @@ from config import get_env
 DATA = Path(get_env("DATA_DIR", "data"))
 API_KEY = get_env("API_KEY", "")
 MAX_BYTES = int(get_env("MAX_UPLOAD_MB", "4096")) * 1024 * 1024
-CHUNK_SECONDS = int(get_env("CHUNK_SECONDS", "1200"))
+CHUNK_SECONDS = int(get_env("CHUNK_SECONDS", "90"))
 WORKERS = int(get_env("WORKERS", "2"))
 EXTENSIONS = [".mp4", ".mov", ".mkv", ".webm"]
 
@@ -45,8 +45,10 @@ def pipeline(src: Path, opts: dict):
         video.make_proxy(str(src), str(proxy), offset, length)
         cuts = video.shot_cuts(str(proxy))
         log.info("chunk %d: %d shot cuts", i + 1, len(cuts))
+        upload = src.parent / f"upload{i}.mp4"
+        video.make_upload(str(proxy), str(upload))
         kept = 0
-        picks = gemini.analyze(str(proxy), opts["count"], opts["min_len"],
+        picks = gemini.analyze(str(upload), opts["count"], opts["min_len"],
                                 opts["max_len"], opts["language"])
         log.info("chunk %d: Gemini returned %d highlights", i + 1, len(picks))
         for h in picks:
@@ -71,6 +73,7 @@ def pipeline(src: Path, opts: dict):
                           "end": round(offset + b, 2)})
         log.info("chunk %d: kept %d of %d", i + 1, kept, len(picks))
         proxy.unlink()
+        upload.unlink()
 
     top = sorted(found, key=lambda h: h["score"], reverse=True)[: opts["count"]]
     top.sort(key=lambda h: h["start"])

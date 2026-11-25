@@ -29,6 +29,14 @@ def make_proxy(src: str, dst: str, start: float, length: float) -> None:
           "-c:a", "aac", "-b:a", "96k", dst])
 
 
+def make_upload(src: str, dst: str) -> None:
+    """Tiny copy for sending inline to Gemini (no Files API): Gemini samples ~1 fps anyway.
+    About 10 KB/s, so a 90 s chunk stays under the gateway's 1 MiB request limit."""
+    _run(["ffmpeg", "-y", "-v", "error", "-i", src, "-vf", "scale=-2:240", "-r", "1",
+          "-c:v", "libx264", "-preset", "veryfast", "-crf", "36", "-ac", "1",
+          "-c:a", "aac", "-b:a", "24k", dst])
+
+
 def shot_cuts(path: str, threshold: float = 0.3) -> list[float]:
     p = _run(["ffmpeg", "-i", path, "-an", "-vf",
               f"select='gt(scene,{threshold})',showinfo", "-f", "null", "-"])

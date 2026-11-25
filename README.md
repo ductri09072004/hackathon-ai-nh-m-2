@@ -22,5 +22,5 @@ include spoilers, and a minute cutoff (ignore everything after it).
 - Uploaded videos and clips stay on disk until you delete them.
 - Upload size is checked by Gradio against `MAX_UPLOAD_MB`.
 - Plain HTTP: add TLS before using it outside a private network.
-- A highlight crossing a 20-minute chunk boundary can be missed.
+- A highlight crossing a 90-second chunk boundary can be missed.
 - Video is sent to Google: check content rights. Free-tier data may be used by Google to improve products.
