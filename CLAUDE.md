@@ -14,7 +14,7 @@ Without Docker you need `ffmpeg` and `ffprobe` on PATH: `pip install -r requirem
 
 If `API_KEY` is set, Gradio login is username `admin` with `API_KEY` as the password. If it is empty, auth is disabled.
 
-Env vars: `GEMINI_API_KEY`, `GEMINI_BASE_URL`, `API_KEY`, `GEMINI_MODEL` (default `gemini-3.8-flash`), `DATA_DIR` (default `data`), `MAX_UPLOAD_MB` (4096), `CHUNK_SECONDS` (1200), `WORKERS` (2, the Gradio concurrency limit).
+Env vars: `GEMINI_API_KEY`, `GEMINI_BASE_URL`, `API_KEY`, `GEMINI_MODEL` (default `gemini-3.8-flash`), `DATA_DIR` (default `data`), `MAX_UPLOAD_MB` (4096), `CHUNK_SECONDS` (1200), `WORKERS` (2, the Gradio concurrency limit), `LOG_LEVEL` (INFO).
 
 ## Architecture
 

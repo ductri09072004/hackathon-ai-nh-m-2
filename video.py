@@ -1,10 +1,17 @@
+import logging
 import re
 import subprocess
+import time
+
+log = logging.getLogger("video")
 
 
 def _run(cmd: list[str]) -> subprocess.CompletedProcess:
+    t0 = time.time()
     p = subprocess.run(cmd, capture_output=True, text=True)
+    log.debug("%s finished in %.1fs: %s", cmd[0], time.time() - t0, " ".join(cmd))
     if p.returncode != 0:
+        log.error("%s exited %d: %s", cmd[0], p.returncode, p.stderr[-500:])
         raise RuntimeError(f"{cmd[0]} failed: {p.stderr[-500:]}")
     return p
 
