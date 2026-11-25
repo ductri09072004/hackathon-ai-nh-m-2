@@ -7,7 +7,7 @@ Put your keys in `.env` (`GEMINI_API_KEY`, `API_KEY`, `GEMINI_BASE_URL`), then:
 
     docker compose up -d --build
 
-Open http://localhost:8000. If `API_KEY` is set, log in with username `admin` and `API_KEY` as the password.
+Open http://localhost:7860. If `API_KEY` is set, log in with username `admin` and `API_KEY` as the password.
 
 Without Docker you need `ffmpeg` and `ffprobe` on PATH: `pip install -r requirements.txt && python app.py`.
 

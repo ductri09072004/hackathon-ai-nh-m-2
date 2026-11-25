@@ -161,7 +161,7 @@ if __name__ == "__main__":
     DATA.mkdir(parents=True, exist_ok=True)
     demo.queue().launch(
         server_name="0.0.0.0",
-        server_port=8000,
+        server_port=7860,
         auth=("admin", API_KEY) if API_KEY else None,
         max_file_size=MAX_BYTES,
         allowed_paths=[str(DATA.resolve())],

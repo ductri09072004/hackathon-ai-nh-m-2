@@ -8,7 +8,7 @@ Highlight: a small Gradio app. A user uploads a video in the browser, and the ap
 
 ## Run
 
-Put the env vars in `.env` (loaded by `config.get_env`), then `docker compose up -d --build`. The UI is at http://localhost:8000.
+Put the env vars in `.env` (loaded by `config.get_env`), then `docker compose up -d --build`. The UI is at http://localhost:7860.
 
 Without Docker you need `ffmpeg` and `ffprobe` on PATH: `pip install -r requirements.txt && python app.py`. Run a single server process.
 

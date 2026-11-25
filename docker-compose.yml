@@ -1,7 +1,7 @@
 services:
   highlight-api:
     build: .
-    ports: ["8000:8000"]
+    ports: ["7860:7860"]
     env_file: .env
     environment:
       DATA_DIR: /data
